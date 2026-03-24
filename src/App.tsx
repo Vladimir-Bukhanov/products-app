@@ -1,34 +1,12 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+
 import ProductList from './components/ProductList'
-import type { IProduct } from './types/product'
+import { useProducts } from './hooks/useProducts'
+
 
 
 export default function App() {
 
-  const [products, setProducts] = useState<IProduct[]>([])
-
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<null | string>(null)
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setError(null)
-        setLoading(true)
-        const response = await axios.get('https://fakestoreapi.com/products')
-        setProducts(response.data)
-        setLoading(false)
-      }
-      catch {
-        setLoading(false)
-        setError('fetch error')
-      }
-    }
-
-    fetchProducts()
-
-  }, [])
+  const { products, loading, error } = useProducts()
 
   return (
     <div className='mx-auto w-[90%] mt-[10vh]'>
