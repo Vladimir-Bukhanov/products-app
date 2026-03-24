@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { IProduct } from '../types/product'
+import { upperCaseFirst } from '../utils/upperCaseFirst'
 
 interface IProductCard {
 	product: IProduct
@@ -14,7 +15,7 @@ export default function ProductCard({product}: IProductCard) {
 			className='border p-5 w-full'
 		>
 			<h2 className='text-xl mb-3'>
-				{product.title}
+				{upperCaseFirst(product.title)}
 			</h2>
 			<img
 				className='w-2/3 mb-3' 
