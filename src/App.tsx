@@ -1,4 +1,5 @@
 
+import ErrorMessage from './components/ErrorMessage'
 import Loader from './components/Loader'
 import ProductList from './components/ProductList'
 import { useProducts } from './hooks/useProducts'
@@ -14,14 +15,10 @@ export default function App() {
       <h1 className='text-center text-xl mb-5'>
         Products
       </h1>
-      {loading && <Loader />}
-      { error && 
-        <p className='text-red-500 mt-10 text-center text-xl'>
-          {error}
-        </p>
-      }
+      { loading && <Loader /> }
+      { error && <ErrorMessage error={error}/>}
 
-      {products && 
+      { products && 
         <ProductList 
           products={products}
         />
