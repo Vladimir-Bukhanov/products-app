@@ -9,7 +9,7 @@ interface IProductList {
 export default function ProductList({products}: IProductList) {
 	return (
 		<AnimatePresence mode="popLayout">
-			<div className='grid grid-cols-1 w-full sm:grid-cols-2 md:grid-cols-3'>
+			<div className='grid gap-y-5 items-stretch grid-cols-1 w-full sm:grid-cols-2 sm:gap-x-5 md:grid-cols-3'>
 				{products.map(product => (
 					<motion.li
 						key={product.id}
