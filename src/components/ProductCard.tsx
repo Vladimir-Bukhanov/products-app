@@ -12,7 +12,7 @@ export default function ProductCard({product}: IProductCard) {
 
 	return (
 		<div 
-			className='border p-5 w-full'
+			className='border p-5 w-full mb-5'
 		>
 			<h2 className='text-xl mb-3'>
 				{upperCaseFirst(product.title)}
