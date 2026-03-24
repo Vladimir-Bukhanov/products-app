@@ -35,9 +35,9 @@ export default function ProductCard({product}: IProductCard) {
 				{show ? 'Hide' : 'Show'} Details  
 			</button>
 
-			{show && 
-				<p>{product.description}</p>
-			}
+			<p className={`duration-200 ease ${show ? 'h-full opacity-100' : 'h-0 opacity-0'}`}>
+				{product.description}
+			</p>
 		</div>
 	)
 }
