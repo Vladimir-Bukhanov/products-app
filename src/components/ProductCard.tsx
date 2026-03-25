@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import type { IProduct } from '../types/product'
 import { upperCaseFirst } from '../utils/upperCaseFirst'
 
@@ -8,7 +7,9 @@ interface IProductCard {
 
 export default function ProductCard({product}: IProductCard) {
 
-	const [show, setShow] = useState<boolean>(false)
+	const moreDetails = () => {
+		
+	}
 
 	return (
 		<div 
@@ -23,21 +24,14 @@ export default function ProductCard({product}: IProductCard) {
 				alt={product.title} 
 			/>
 			<p className='mb-3'>
-				Category: {product.category}
-			</p>
-			<p className='mb-3'>
-				Price: {Number(product.price).toFixed(1)}$
+				Price: {product.price.toFixed(1)}$
 			</p>
 			<button
-				className='border mb-3 px-2 cursor-pointer ease duration-200 hover:bg-pink-100 outline-0'
-				onClick={() => setShow(prev => !prev)}
+				className='border px-2 cursor-pointer ease duration-200 hover:bg-pink-100 outline-0'
+				onClick={moreDetails}
 			>
-				{show ? 'Hide' : 'Show'} Details  
+				More details  
 			</button>
-
-			<p className={`duration-200 ease ${show ? 'h-full opacity-100' : 'h-0 opacity-0'}`}>
-				{product.description}
-			</p>
 		</div>
 	)
 }

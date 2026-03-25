@@ -4,6 +4,7 @@ import ErrorMessage from './components/ErrorMessage'
 import Filters, { type FiltersType } from './components/Filters'
 import Loader from './components/Loader'
 import ProductList from './components/ProductList'
+import Sorts, { type SortsType } from './components/Sorts'
 import { useProducts } from './hooks/useProducts'
 
 
@@ -13,6 +14,8 @@ export default function App() {
   const [searchBar, setSearchBar] = useState<string>('')
 
   const [filterBtn, setFilterBtn] = useState<FiltersType | null>(null)
+
+  const [sortBtn, setSortBtn] = useState<SortsType>("title")
 
   const { products, loading, error } = useProducts()
 
@@ -38,7 +41,16 @@ export default function App() {
 
   })
 
-  const searchedProduct = filteredProducts.filter(product => (
+  const sortedProducts = filteredProducts.sort((a, b) => {
+    if (sortBtn === "title") {
+      return a.title.localeCompare(b.title)
+    } if (sortBtn === "price") {
+      return a.price - b.price
+    }
+    return a.price - b.price
+  })
+
+  const searchedProduct = sortedProducts.filter(product => (
       product.title.toLocaleLowerCase().includes(searchBar.toLocaleLowerCase())
     )
   )
@@ -55,11 +67,15 @@ export default function App() {
         value={searchBar}
         onChange={(e) => setSearchBar(e.target.value)} 
       />
+      <Sorts
+        currentSort={sortBtn}
+        onSort={setSortBtn}
+      />
       <button 
-        className='block border px-2 mb-5 cursor-pointer ease duration-200 hover:bg-blue-100'
+        className={`block border px-2 mb-3 cursor-pointer ease duration-200 hover:scale-102 ${filterBtn === null ? 'bg-gray-100' : ''}`}
         onClick={() => setFilterBtn(null)}
       >
-        All products
+        all products
       </button>
       <Filters 
         currentFilter={filterBtn}
