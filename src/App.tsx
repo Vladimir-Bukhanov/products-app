@@ -16,10 +16,14 @@ export default function App() {
   const [filterBtn, setFilterBtn] = useState<FiltersType | null>(null)
 
   const [sortBtn, setSortBtn] = useState<SortsType>("title")
+  
+  const [visibleCount, setVisibleCount] = useState<number>(6)
 
   const { products, loading, error } = useProducts()
 
-  const filteredProducts = products.filter(product => {
+  const visibleProducts = products.slice(0, visibleCount)
+
+  const filteredProducts = visibleProducts.filter(product => {
 
     if (filterBtn === "electronics") {
       return product.category === "electronics"
@@ -55,8 +59,22 @@ export default function App() {
     )
   )
 
+  const loadLess = () => {
+    if (visibleCount <= 6) {
+      return
+    }
+    setVisibleCount(prev => prev-6)
+  }
+
+  const loadMore = () => {
+    if (visibleCount >= products.length) {
+      return
+    } 
+    setVisibleCount(prev => prev+6)
+  }
+
   return (
-    <div className='mx-auto w-[90%] mt-[10vh]'>
+    <div className='mx-auto w-[90%] mt-10 mb-10'>
       <h1 className='text-center text-xl mb-5'>
         Products
       </h1>
@@ -89,6 +107,20 @@ export default function App() {
           products={searchedProduct}
         />
       }
+      <div className='flex justify-between'>
+        <button
+          className='border px-2 cursor-pointer hover:bg-pink-100 duration-200 mt-5'
+          onClick={loadMore}
+        >
+          Load more
+        </button>
+        <button
+          className='border px-2 cursor-pointer hover:bg-pink-100 duration-200 mt-5'
+          onClick={loadLess}
+        >
+          Load less
+        </button>
+      </div>
     </div>
   )
 }
