@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import type { IProduct } from '../types/product'
 import { upperCaseFirst } from '../utils/upperCaseFirst'
 
@@ -7,9 +8,7 @@ interface IProductCard {
 
 export default function ProductCard({product}: IProductCard) {
 
-	const moreDetails = () => {
-		
-	}
+	const navigate = useNavigate()
 
 	return (
 		<div 
@@ -28,7 +27,7 @@ export default function ProductCard({product}: IProductCard) {
 			</p>
 			<button
 				className='border px-2 cursor-pointer ease duration-200 hover:bg-pink-100 outline-0'
-				onClick={moreDetails}
+				onClick={() => navigate(`/product/${product.id}`)}
 			>
 				More details  
 			</button>
