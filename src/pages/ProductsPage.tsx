@@ -23,7 +23,9 @@ export default function ProductsPage() {
 
   const { products, loading, error } = useProducts()
 
-  const filteredProducts = products.filter(product => {
+  const filteredProducts = useMemo(() => {
+    
+    return products.filter(product => {
 
     if (filterBtn === "electronics") {
       return product.category === "electronics"
@@ -44,6 +46,7 @@ export default function ProductsPage() {
     return true
 
   })
+  }, [products, filterBtn])
 
   const sortedProducts = useMemo(() => {
 
