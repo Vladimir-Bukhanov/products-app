@@ -1,25 +1,34 @@
 
+import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6"
+import type { SortField, SortState } from '../types/SortType'
 
-export type SortsType = 'price' | 'title'
-
-interface ISorts {
-	currentSort: SortsType
-	onSort: (item: SortsType) => void
+type SortsProps = {
+	sort: SortState,
+	onSort: (field: SortField) => void
 }
 
+export default function Sorts({sort, onSort}: SortsProps) {
 
-export default function Sorts({currentSort, onSort}: ISorts) {
 	return (
-		<div className='flex mb-5'>
-			{(['title', 'price'] as SortsType[]).map(sortItem => (
-				<button
-					key={sortItem}
-					className={`border px-2 mr-3 cursor-pointer duration-200 hover:scale-102 ${currentSort === sortItem ? "bg-blue-100" : ""}`}
-					onClick={() => onSort(sortItem)}
-				>
-					sorted by {sortItem}
-				</button>
-			))}
+		<div
+			className='flex mb-5'
+		>
+			<button
+			 className='border pl-2 w-28 cursor-pointer duration-200 hover:scale-102 mr-3 flex items-center'
+			 onClick={() => onSort('title')}
+			>
+				sort by title {sort.field === 'title' && (sort.order === 'asc' ? <FaArrowUpLong className='ml-1' /> : <FaArrowDownLong className='ml-1' />)}
+				{sort.field !== 'title' && <FaArrowUpLong className='ml-1' />}
+			</button>
+			<button
+			 className='border w-30 cursor-pointer duration-200 hover:scale-102 flex items-center pl-2'
+			 onClick={() => onSort('price')}
+			>
+				sort by price {sort.field === 'price' && (sort.order === 'asc' ? <FaArrowUpLong className='ml-1' /> : <FaArrowDownLong className='ml-1' />)}
+				{sort.field !== 'price' && <FaArrowUpLong className='ml-1' />}
+			</button>
 		</div>
 	)
+
+	
 }

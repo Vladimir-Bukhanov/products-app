@@ -1,27 +1,29 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import ErrorMessage from '../components/ErrorMessage'
 import Filters, { type FiltersType } from '../components/Filters'
 import Loader from '../components/Loader'
 import ProductList from '../components/ProductList'
-import Sorts, { type SortsType } from '../components/Sorts'
+import Sorts from '../components/Sorts'
 import { useProducts } from '../hooks/useProducts'
+import type { SortField, SortState } from '../types/SortType'
 
 
 export default function ProductsPage() {
 
-	  const [searchBar, setSearchBar] = useState<string>('')
+	const [searchBar, setSearchBar] = useState<string>('')
 
   const [filterBtn, setFilterBtn] = useState<FiltersType | null>(null)
 
-  const [sortBtn, setSortBtn] = useState<SortsType>("title")
-  
+  const [sort, setSort] = useState<SortState>({
+    field: null,
+    order: "asc"
+  })
+
   const [visibleCount, setVisibleCount] = useState<number>(6)
 
   const { products, loading, error } = useProducts()
 
-  const visibleProducts = products.slice(0, visibleCount)
-
-  const filteredProducts = visibleProducts.filter(product => {
+  const filteredProducts = products.filter(product => {
 
     if (filterBtn === "electronics") {
       return product.category === "electronics"
@@ -43,19 +45,47 @@ export default function ProductsPage() {
 
   })
 
-  const sortedProducts = filteredProducts.sort((a, b) => {
-    if (sortBtn === "title") {
-      return a.title.localeCompare(b.title)
-    } if (sortBtn === "price") {
-      return a.price - b.price
-    }
-    return a.price - b.price
-  })
+  const sortedProducts = useMemo(() => {
+
+    if (!sort.field) return filteredProducts
+
+    const sorted = [...filteredProducts].sort((a, b) => {
+      if (sort.field === "title") {
+        return a.title.localeCompare(b.title)
+      }
+      if (sort.field === "price") {
+        return a.price - b.price
+      }
+      return 0
+    })
+
+    return sort.order === "asc" ? sorted : sorted.reverse()
+
+  }, [products, filteredProducts, sort])
+
+  const handleSort = (field: SortField) => {
+    setSort(prev => {
+      if (prev.field === field) {
+        return {
+          field,
+          order: prev.order === "asc" ? "desc" : "asc"
+        }
+      }
+
+      return {
+        field,
+        order: "asc"
+      }
+
+    })
+  }
 
   const searchedProduct = sortedProducts.filter(product => (
       product.title.toLocaleLowerCase().includes(searchBar.toLocaleLowerCase())
     )
   )
+
+  const visibleProducts = searchedProduct.slice(0, visibleCount)
 
   const loadLess = () => {
     if (visibleCount <= 6) {
@@ -84,8 +114,8 @@ export default function ProductsPage() {
         onChange={(e) => setSearchBar(e.target.value)} 
       />
       <Sorts
-        currentSort={sortBtn}
-        onSort={setSortBtn}
+        sort={sort}
+        onSort={handleSort}
       />
       <button 
         className={`block border px-2 mb-3 cursor-pointer ease duration-200 hover:scale-102 ${filterBtn === null ? 'bg-gray-100' : ''}`}
@@ -102,7 +132,7 @@ export default function ProductsPage() {
 
       { products && 
         <ProductList 
-          products={searchedProduct}
+          products={visibleProducts}
         />
       }
       <div className='flex justify-between'>
