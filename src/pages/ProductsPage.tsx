@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ErrorMessage from '../components/ErrorMessage'
 import Filters, { type FiltersType } from '../components/Filters'
 import Loader from '../components/Loader'
@@ -13,20 +13,22 @@ export default function ProductsPage() {
 
 	const [searchBar, setSearchBar] = useState<string>('')
 
-  const [filterBtn, setFilterBtn] = useState<FiltersType | null>(null)
+  const [filterBtn, setFilterBtn] = useState<FiltersType>(() => {
+    return (localStorage.getItem('filter') as FiltersType) || "all products"
+  })
 
   const [sort, setSort] = useState<SortState>({
     field: null,
     order: "asc"
   })
 
-  const [isShowSorts, setIsShowSorts] = useState<boolean>(false)
-
-   const [isShowFilters, setIsShowFilters] = useState<boolean>(false)
-
   const [visibleCount, setVisibleCount] = useState<number>(6)
 
   const { products, loading, error } = useProducts()
+
+  useEffect(() => {
+    localStorage.setItem('filter', filterBtn)
+  }, [filterBtn])
 
   const filteredProducts = useMemo(() => {
     
@@ -120,12 +122,6 @@ export default function ProductsPage() {
       </div>
       <div className='flex flex-col w-[90%] mx-auto md:flex-row'>
         <p className='text-xl mr-3 mb-3'>Filters:</p>
-        <button 
-          className={`block border px-2 mb-3 cursor-pointer w-26 md:mr-3 ease duration-200 hover:scale-102 ${filterBtn === null ? 'bg-gray-100' : ''}`}
-          onClick={() => setFilterBtn(null)}
-        >
-          all products
-        </button>
         <Filters 
           currentFilter={filterBtn}
           onFilter={setFilterBtn}

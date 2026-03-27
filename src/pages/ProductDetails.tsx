@@ -18,7 +18,7 @@ const ProductDetails = () => {
 
 	const navigate = useNavigate()
 
-		const fetchProduct = async () => {
+		const fetchProductById = async () => {
 
 			try {
 				setLoading(true)
@@ -40,7 +40,7 @@ const ProductDetails = () => {
 		}
 	
 	useEffect(() => {
-		fetchProduct()
+		fetchProductById()
 	}, [id])
 
 	return (
