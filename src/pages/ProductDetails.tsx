@@ -52,7 +52,8 @@ const ProductDetails = () => {
 					<h2 className='text-xl text-center mb-5'>{upperCaseFirst(product.title)}</h2>
 					<img className='mx-auto w-40 mb-5' src={product.image} alt={product.title} />
 					<p className='mb-5'>{product.description}</p>
-					<h3 className='mb-5'>Price: {product.price.toFixed(1)}$</h3>
+					<h3 className='mb-3'>Price: {product.price.toFixed(1)}$</h3>
+					<p className='mb-5'>Category: {product.category}</p>
 					<button 
 						className='border px-2 cursor-pointer duration-200 hover:bg-blue-100'
 						onClick={() => navigate(-1)}
