@@ -8,6 +8,7 @@ import { useProducts } from '../hooks/useProducts'
 import type { SortField, SortState } from '../types/SortType'
 
 
+
 export default function ProductsPage() {
 
 	const [searchBar, setSearchBar] = useState<string>('')
@@ -18,6 +19,10 @@ export default function ProductsPage() {
     field: null,
     order: "asc"
   })
+
+  const [isShowSorts, setIsShowSorts] = useState<boolean>(false)
+
+   const [isShowFilters, setIsShowFilters] = useState<boolean>(false)
 
   const [visibleCount, setVisibleCount] = useState<number>(6)
 
@@ -105,54 +110,62 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className='mx-auto w-[90%] mt-10 mb-10'>
-      <h1 className='text-center text-xl mb-5'>
-        Products
-      </h1>
-      <input 
-        type="text"
-        className='outline-0 px-2 border mb-3 w-1/2 max-w-100'
-        placeholder='Search product...'
-        value={searchBar}
-        onChange={(e) => setSearchBar(e.target.value)} 
-      />
-      <Sorts
-        sort={sort}
-        onSort={handleSort}
-      />
-      <button 
-        className={`block border px-2 mb-3 cursor-pointer ease duration-200 hover:scale-102 ${filterBtn === null ? 'bg-gray-100' : ''}`}
-        onClick={() => setFilterBtn(null)}
-      >
-        all products
-      </button>
-      <Filters 
-        currentFilter={filterBtn}
-        onFilter={setFilterBtn}
-      />
-      { loading && <Loader /> }
-      { error && <ErrorMessage error={error}/>}
-
-      { products && 
-        <ProductList 
-          products={visibleProducts}
+    <>
+      <div className='flex mt-5 w-[90%] mx-auto'>
+        <p className='text-xl mr-3'>Sorts:</p>
+        <Sorts
+          sort={sort}
+          onSort={handleSort}
         />
-      }
-      <div className='flex justify-between'>
-        <button
-          className='border px-2 cursor-pointer hover:bg-pink-100 duration-200 mt-5'
-          onClick={loadMore}
-        >
-          Load more
-        </button>
-        <button
-          className='border px-2 cursor-pointer hover:bg-pink-100 duration-200 mt-5'
-          onClick={loadLess}
-        >
-          Load less
-        </button>
       </div>
-    </div>
+      <div className='flex flex-col w-[90%] mx-auto md:flex-row'>
+        <p className='text-xl mr-3 mb-3'>Filters:</p>
+        <button 
+          className={`block border px-2 mb-3 cursor-pointer w-26 md:mr-3 ease duration-200 hover:scale-102 ${filterBtn === null ? 'bg-gray-100' : ''}`}
+          onClick={() => setFilterBtn(null)}
+        >
+          all products
+        </button>
+        <Filters 
+          currentFilter={filterBtn}
+          onFilter={setFilterBtn}
+        />
+      </div>
+      <div className='mx-auto w-[90%] mt-5 mb-10'>
+        <h1 className='text-center text-xl mb-5'>
+          Products
+        </h1>
+        <input 
+          type="text"
+          className='outline-0 px-2 border mb-5 w-1/2 max-w-100'
+          placeholder='Search product...'
+          value={searchBar}
+          onChange={(e) => setSearchBar(e.target.value)} 
+        />
+        { loading && <Loader /> }
+        { error && <ErrorMessage error={error}/>}
+
+        { products && 
+          <ProductList 
+            products={visibleProducts}
+          />
+        }
+        <div className='flex justify-between'>
+          <button
+            className='border px-2 cursor-pointer hover:bg-pink-100 duration-200 mt-5'
+            onClick={loadMore}
+          >
+            Load more
+          </button>
+          <button
+            className='border px-2 cursor-pointer hover:bg-pink-100 duration-200 mt-5'
+            onClick={loadLess}
+          >
+            Load less
+          </button>
+        </div>
+      </div>
+    </>
   )
 
 }

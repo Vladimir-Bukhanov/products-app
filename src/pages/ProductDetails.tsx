@@ -44,14 +44,14 @@ const ProductDetails = () => {
 	}, [id])
 
 	return (
-		<div className='mx-auto w-[90%] mt-10'>
+		<div className='w-90 sm:w-120 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
 			{loading && <Loader />}
 			{error && <ErrorMessage error={error} />}
 			{product &&
 				<div className='border p-5 bg-pink-100'> 
-					<h2 className='text-xl text-center mb-5'>{upperCaseFirst(product.title)}</h2>
-					<img className='mx-auto w-40 mb-5' src={product.image} alt={product.title} />
-					<p className='mb-5'>{product.description}</p>
+					<h2 className='sm:text-xl text-center mb-5'>{upperCaseFirst(product.title)}</h2>
+					<img className='mx-auto sm:w-40 w-30 mb-5' src={product.image} alt={product.title} />
+					<p className='mb-5 text-[0.9rem] sm:text-[1rem]'>{product.description}</p>
 					<h3 className='mb-3'>Price: {product.price.toFixed(1)}$</h3>
 					<p className='mb-5'>Category: {product.category}</p>
 					<button 

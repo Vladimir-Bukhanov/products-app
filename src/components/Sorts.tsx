@@ -18,14 +18,12 @@ export default function Sorts({sort, onSort}: SortsProps) {
 			 onClick={() => onSort('title')}
 			>
 				sort by title {sort.field === 'title' && (sort.order === 'asc' ? <FaArrowUpLong className='ml-1' /> : <FaArrowDownLong className='ml-1' />)}
-				{sort.field !== 'title' && <FaArrowUpLong className='ml-1' />}
 			</button>
 			<button
 			 className='border w-30 cursor-pointer duration-200 hover:scale-102 flex items-center pl-2'
 			 onClick={() => onSort('price')}
 			>
 				sort by price {sort.field === 'price' && (sort.order === 'asc' ? <FaArrowUpLong className='ml-1' /> : <FaArrowDownLong className='ml-1' />)}
-				{sort.field !== 'price' && <FaArrowUpLong className='ml-1' />}
 			</button>
 		</div>
 	)
