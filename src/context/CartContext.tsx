@@ -5,6 +5,7 @@ import type { IProduct } from '../types/product'
 type CartContextType = {
 	cart: CartItem[]
 	addToCart: (product: IProduct) => void
+	removeFromCart: (id: number) => void
 }
 
 interface ICartProvider {
@@ -13,7 +14,8 @@ interface ICartProvider {
 
 export const CartContext = createContext<CartContextType >({
 	cart: [],
-	addToCart: () => {}
+	addToCart: () => {},
+	removeFromCart: () => {}
 })
 
 
@@ -46,8 +48,15 @@ export const CartProvider = ({children}: ICartProvider) => {
 		})
 	}
 
+	const removeFromCart = (id: number) => {
+		setCart(prev => prev.filter(item => 
+			item.id !== id
+		)
+		)
+	}
+
 	return (
-		<CartContext.Provider value={{ cart, addToCart }}>
+		<CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
 			{children}
 		</CartContext.Provider>
 	)

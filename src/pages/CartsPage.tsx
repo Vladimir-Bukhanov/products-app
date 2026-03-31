@@ -15,12 +15,16 @@ export default function CartsPage() {
 	return (
 		<>
 			<Header />
-			<div className='mt-15 w-[90%] sm:w-[80%] md:w-[70%] mx-auto p-3'>
-				<h2 className='text-xl text-center mb-3'>Cart</h2>
-				{cart.length === 0 && <p>Cart is empty</p>}
-				<Cart cart={cart} />
-				<p>Total price: {totalPrice}$</p>
-			</div>
+			{cart.length === 0 && <p className='text-xl mt-20 text-center'>Cart is empty</p>}
+			{
+				cart.length > 0 &&
+				<div className='mt-15 w-[90%] sm:w-[80%] md:w-[70%] mx-auto p-3'>
+					<h2 className='text-xl text-center mb-3'>Cart</h2>
+					<p className='mb-3'>Total price: {totalPrice.toFixed(1)}$</p>
+					<Cart cart={cart} />
+				</div> 
+			}
+
 		</>
 	)
 }
