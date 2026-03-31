@@ -7,17 +7,15 @@ interface ICart {
 
 export default function Cart({ cart }: ICart) {
 	return (
-		<div>
-			<h2>Cart</h2>
-
+		<div className='mb-3'>
 			{cart.map(item => (
 				<div 
 					key={item.id}
-					className='mb-3'
+					className='mb-5 border p-3'
 				>
 					<p className='mb-3'>{item.title}</p>
-					<p className='mb-3'>{item.quantity}</p>
-					<p>{item.price}$</p>
+					<p className='mb-3'>Quantity: {item.quantity}</p>
+					<p>Price: {item.price}$</p>
 				</div>
 			))}
 		</div>
