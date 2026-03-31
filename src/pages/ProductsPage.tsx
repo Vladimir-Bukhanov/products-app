@@ -8,7 +8,6 @@ import { useProducts } from '../hooks/useProducts'
 import type { SortField, SortState } from '../types/SortType'
 
 
-
 export default function ProductsPage() {
 
 	const [searchBar, setSearchBar] = useState<string>('')

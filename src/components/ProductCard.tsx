@@ -1,4 +1,6 @@
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { CartContext } from '../context/CartContext'
 import type { IProduct } from '../types/product'
 import { upperCaseFirst } from '../utils/upperCaseFirst'
 
@@ -9,6 +11,8 @@ interface IProductCard {
 export default function ProductCard({product}: IProductCard) {
 
 	const navigate = useNavigate()
+
+	const { addToCart } = useContext(CartContext)
 
 	return (
 		<div 
@@ -25,6 +29,12 @@ export default function ProductCard({product}: IProductCard) {
 			<p className='mb-3'>
 				Price: {product.price.toFixed(1)}$
 			</p>
+			<button 
+				className='mb-3 block border px-2 cursor-pointer ease duration-200 hover:bg-pink-100'
+				onClick={() => addToCart(product)}
+			>
+				Add to Cart
+			</button>
 			<button
 				className='border px-2 cursor-pointer ease duration-200 hover:bg-pink-100 outline-0'
 				onClick={() => navigate(`/product/${product.id}`)}
