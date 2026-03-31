@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import ErrorMessage from '../components/ErrorMessage'
 import Filters, { type FiltersType } from '../components/Filters'
+import Header from '../components/Header'
 import Loader from '../components/Loader'
 import ProductList from '../components/ProductList'
 import Sorts from '../components/Sorts'
@@ -112,7 +113,8 @@ export default function ProductsPage() {
 
   return (
     <>
-      <div className='flex mt-5 w-[90%] mx-auto'>
+      <Header />
+      <div className='flex mt-15 w-[90%] mx-auto'>
         <p className='text-xl mr-3'>Sorts:</p>
         <Sorts
           sort={sort}
