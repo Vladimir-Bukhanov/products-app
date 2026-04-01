@@ -24,6 +24,7 @@ export default function ProductsPage() {
 
   const [visibleCount, setVisibleCount] = useState<number>(6)
 
+
   const { products, loading, error } = useProducts()
 
   useEffect(() => {
@@ -113,22 +114,19 @@ export default function ProductsPage() {
 
   return (
     <>
-      <Header />
-      <div className='flex mt-15 w-[90%] mx-auto'>
-        <p className='text-xl mr-3'>Sorts:</p>
-        <Sorts
-          sort={sort}
-          onSort={handleSort}
-        />
-      </div>
-      <div className='flex flex-col w-[90%] mx-auto md:flex-row'>
-        <p className='text-xl mr-3 mb-3'>Filters:</p>
-        <Filters 
-          currentFilter={filterBtn}
-          onFilter={setFilterBtn}
-        />
-      </div>
-      <div className='mx-auto w-[90%] mt-5 mb-10'>
+      <Header>
+        <div>
+          <Sorts
+            sort={sort}
+            onSort={handleSort}
+          />
+          <Filters 
+            currentFilter={filterBtn}
+            onFilter={setFilterBtn}
+          />
+        </div>
+      </Header>
+      <div className='mx-auto w-[90%] mt-15 mb-10'>
         <h1 className='text-center text-xl mb-5'>
           Products
         </h1>

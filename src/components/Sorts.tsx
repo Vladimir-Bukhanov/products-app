@@ -11,10 +11,10 @@ export default function Sorts({sort, onSort}: SortsProps) {
 
 	return (
 		<div
-			className='flex mb-5'
+			className='block mb-3'
 		>
 			<button
-			 className='border pl-2 w-28 cursor-pointer duration-200 hover:scale-102 mr-3 flex items-center'
+			 className='border pl-2 w-28 cursor-pointer duration-200 hover:scale-102 mb-3 flex items-center'
 			 onClick={() => onSort('title')}
 			>
 				sort by title {sort.field === 'title' && (sort.order === 'asc' ? <FaArrowUpLong className='ml-1' /> : <FaArrowDownLong className='ml-1' />)}
