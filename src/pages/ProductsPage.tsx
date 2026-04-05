@@ -145,7 +145,7 @@ export default function ProductsPage() {
             products={visibleProducts}
           />
         }
-      </div>
+
         { products.length > 0 && 
           <div className='flex justify-between'>
             <button
@@ -162,6 +162,8 @@ export default function ProductsPage() {
             </button>
           </div>
         }
+
+      </div>
     </>
   )
 
