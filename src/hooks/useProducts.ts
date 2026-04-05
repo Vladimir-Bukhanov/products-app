@@ -21,7 +21,11 @@ export const useProducts = () => {
       try {
         setError(null)
         setLoading(true)
-        const response = await axios.get<IProduct[]>('https://fakestoreapi.com/products')
+        const response = await axios.get<IProduct[]>('https://fakestoreapi.com/products', {
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
         setProducts(response.data)
         setLoading(false)
         localStorage.setItem('products', JSON.stringify(response.data))

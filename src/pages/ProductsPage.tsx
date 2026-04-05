@@ -141,24 +141,26 @@ export default function ProductsPage() {
         { error && <ErrorMessage error={error}/>}
 
         { products && 
-          <ProductList 
-            products={visibleProducts}
-          />
+          <>
+            <ProductList 
+              products={visibleProducts}
+            />
+            <div className='flex justify-between'>
+            <button
+              className='border px-2 cursor-pointer hover:bg-pink-100 duration-200 mt-5'
+              onClick={loadMore}
+            >
+              Load more
+            </button>
+            <button
+              className='border px-2 cursor-pointer hover:bg-pink-100 duration-200 mt-5'
+              onClick={loadLess}
+            >
+              Load less
+            </button>
+          </div>
+        </>
         }
-        <div className='flex justify-between'>
-          <button
-            className='border px-2 cursor-pointer hover:bg-pink-100 duration-200 mt-5'
-            onClick={loadMore}
-          >
-            Load more
-          </button>
-          <button
-            className='border px-2 cursor-pointer hover:bg-pink-100 duration-200 mt-5'
-            onClick={loadLess}
-          >
-            Load less
-          </button>
-        </div>
       </div>
     </>
   )
