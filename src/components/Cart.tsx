@@ -32,7 +32,7 @@ export default function Cart({ cart }: ICart) {
 						>
 							<p className='mb-3'>{item.title}</p>
 							<p className='mb-3'>Quantity: {item.quantity}</p>
-							<p className='mb-3'>Price: {item.price}$</p>
+							<p className='mb-3'>Price: {item.price.toFixed(1)}$</p>
 							<button className='border cursor-pointer px-2 hover:bg-blue-100 duration-200'
 								onClick={() => removeFromCart(item.id)}
 							>
