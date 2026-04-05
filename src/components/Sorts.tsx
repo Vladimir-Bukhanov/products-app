@@ -2,6 +2,7 @@
 import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6"
 import type { SortField, SortState } from '../types/SortType'
 
+
 type SortsProps = {
 	sort: SortState,
 	onSort: (field: SortField) => void
@@ -27,6 +28,5 @@ export default function Sorts({sort, onSort}: SortsProps) {
 			</button>
 		</div>
 	)
-
 	
 }
